@@ -17,21 +17,21 @@ var (
 type PolicyAuthGithubResponse map[string]string
 
 type GithubResponse struct {
-	RequestId				string							`json:"request_id"`
-	Auth						AuthGithubResponse	`json:"auth"`
+	RequestId	string			`json:"request_id"`
+	Auth		AuthGithubResponse	`json:"auth"`
 }
 
 type AuthGithubResponse struct {
-	ClientToken			string											`json:"client_token"`
-	Accessor				string											`json:"accessor"`
-	Policies				PolicyAuthGithubResponse 		`json:"policies"`
-	Metadata				MetadataAuthGithubResponse
-	LeaseDuration		int													`json:"lease_duration"`
-	Renewable				bool
+	ClientToken		string				`json:"client_token"`
+	Accessor		string				`json:"accessor"`
+	Policies		PolicyAuthGithubResponse 	`json:"policies"`
+	Metadata		MetadataAuthGithubResponse	`json:"metadata"`
+	LeaseDuration		int				`json:"lease_duration"`
+	Renewable		bool				`json:"renewable"`
 }
 
 type MetadataAuthGithubResponse struct {
-	Org				string	`json:"org"`
+	Org		string	`json:"org"`
 	Username	string	`json:"username"`
 }
 
