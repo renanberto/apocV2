@@ -3,8 +3,8 @@ package main
 import (
   "github.com/gin-gonic/gin"
   "net/http"
-  "github.com/involvestecnologia/apoc/v2/history"
-  "github.com/involvestecnologia/apoc/v2/vault"
+  "github.com/renanberto/apocV2/history"
+  "github.com/renanberto/apocV2/vault"
 )
 
 func main() {
