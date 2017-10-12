@@ -1,0 +1,26 @@
+<html>
+{{ template "header.tmpl" }}
+  <style>
+    body { background: #1b1c1d }
+
+    .ui.inverted { background: rgba(254, 26, 36, 0.98); color: rgba(0, 0, 0, 0.9); }
+
+    h1 { font-size: 40px; margin: 250px; }
+
+    .apoc.margin { margin: 10px 370px; }
+  </style>
+
+  <body>
+
+    <div class="ui inverted vertical masthead center aligned segment">
+      {{ template "menu.tmpl" }}
+        <h1>Agile Promoter Operations Center - Involves</h1>
+    </div>
+
+	</body>
+</html>
+
+<script>
+$('h1')
+  .transition('tada');
+</script>

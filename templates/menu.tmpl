@@ -1,0 +1,27 @@
+<div class="ui container">
+  <div class="ui large secondary inverted menu">
+
+    <a class="item" href="/"> Home </a>
+    <a class="item" href="/about"> About </a>
+
+      <div class="ui pointing dropdown link item red"> History
+        <div class="menu">
+          <a href="/history/outages" class="item"> Outages </a>
+        </div>
+      </div>
+
+      <div class="ui pointing dropdown link item red"> Vault
+        <div class="menu">
+          <a href="/vault/mysql" class="item"> MySQL </a>
+        </div>
+      </div>
+
+      <i class="ui right item"> Cheers </i>
+
+  </div>
+</div>
+
+<script>
+  $('.dropdown')
+    .dropdown();
+</script>
