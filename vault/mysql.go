@@ -12,18 +12,18 @@ var (
 )
 
 type MysqlResponse struct {
-	LeaseDuration		int				`json:"lease_duration"`
-	Data						MysqlData `json:"data"`
+	LeaseDuration		int		`json:"lease_duration"`
+	Data			MysqlData 	`json:"data"`
 }
 
 type MysqlData struct {
-	Username			string	`json:"username"`
-	Password			string	`json:"password"`
+	Username	string	`json:"username"`
+	Password	string	`json:"password"`
 }
 
 type MysqlCredsForm struct {
 	githubToken		string `json:"githubToken" binding:"required"`
-	database 			string `json:"database" binding:"required"`
+	database 		string `json:"database" binding:"required"`
 	accessMode 		string `json:"accessMode" binding:"required"`
 }
 
