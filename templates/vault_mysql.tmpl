@@ -6,23 +6,18 @@
 	    position: absolute;
 	    right: 0px;
     }
-    .apoc.margin { margin: 10px 370px; }
   </style>
-
   <body>
-
     <div class="ui inverted vertical masthead center aligned segment">
       {{ template "menu.tmpl" }}
     </div>
-
     <div class="ui inverted masthead left aligned segment apoc margin">
       <div class="ui message black center">
-        <form class="ui form inverted" action="/vault/mysql/create-creds" method="POST">
+        <form id="mysqlForm" class="ui form inverted" action="/vault/mysql/create-creds" method="POST" onsubmit="return validateForm()">
           <div class="field eight wide">
             <h3>Github token</h3>
             <input type="text" name="githubToken" placeholder="Token" maxlength="40">
           </div>
-
           <div class="eight wide field">
             <h3>Database</h3>
             <select name="database">
@@ -31,38 +26,70 @@
               <option value="involvesdbeua3">involvesdbeua3</option>
             </select>
           </div>
-
-            <h3>Access mode</h3>
-               <div class="field">
-                 <div class="ui radio checkbox">
-                   <input type="radio" name="accessMode" tabindex="0" class="hidden" value="readonly">
-                   <label>Readonly</label>
-                 </div>
-               </div>
-               <div class="field">
-                 <div class="ui radio checkbox">
-                   <input type="radio" name="accessMode" tabindex="0" class="hidden" value="readwrite">
-                   <label>Read/Write</label>
-                 </div>
-               </div>
-					<div class="red ui buttons right aligned">
-            <button class="ui button" type="submit">Submit</button>
-          </div>
-
+          <h3>Access mode</h3>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="accessMode" tabindex="0" class="hidden" value="readonly">
+                <label>Readonly</label>
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui radio checkbox">
+                <input type="radio" name="accessMode" tabindex="0" class="hidden" value="readwrite">
+                <label>Read/Write</label>
+              </div>
+              </div>
+					      <div class="ui buttons red right aligned">
+                  <button id="submitMysqlForm" class="ui button" type="submit" >Submit</button>
+                </div>
         </form>
       </div>
     </div>
-
-    {{ .username }}
-    {{ .password }}
-
-
-
+    <div class="ui mini modal">
+      <div class="header">Mysql Credentials <i class="unlock alternate icon"></i> </div>
+        <div id="mysqlCredsInformation" class="ui positive message">
+      </div>
+      <div class="actions">
+        <div class="ui buttons">
+          <div class="ui cancel button red" onclick="quitWithReload()">Sair</div>
+          </div>
+        </div>
+      </div>
 	</body>
 </html>
 
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
 <script>
+var options = {
+  dataType: 'json',
+  success: function(response) {
+    var myData = JSON.stringify(response);
+    var myDataObject = JSON.parse(myData);
+    var info = 'Username: ' + myDataObject.username + '</br>' + 'Password: ' + myDataObject.password;
+    
+    $("#mysqlCredsInformation").append(info);
+    $('.ui.modal')
+      .modal('setting', 'transition', 'browse')
+      .modal('setting', 'closable', false)
+      .modal('show');
+  }
+};
+$("#mysqlForm").ajaxForm(options);
+
+function quitWithReload(){
+  location.reload();
+}
+
+$('#submitMysqlForm').on('click', function() {
+  $(this)
+    .addClass('loading')
+    .siblings()
+    .removeClass('loading');
+})
+
 $('.ui.radio.checkbox')
-  .checkbox()
-;
+  .checkbox();
+
+$('.ui.cancel.button')
 </script>
