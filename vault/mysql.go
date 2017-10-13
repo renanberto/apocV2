@@ -48,10 +48,19 @@ func InputMysqlHandler(c *gin.Context) {
 
 	username := mysqlCredsInformation.Data.Username
 	password := mysqlCredsInformation.Data.Password
+	leaseTime := mysqlCredsInformation.LeaseDuration
+
+	if githubBody.Errors != nil {
+		c.JSON(http.StatusOK,gin.H{
+			"respError": githubBody.Errors,
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK,gin.H{
 		"username": username,
 		"password": password,
+		"lease_time": leaseTime,
 	})
 }
 
