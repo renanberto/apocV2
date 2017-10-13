@@ -1,22 +1,16 @@
 <html>
 {{ template "header_depth1.tmpl" }}
-  <style>
-    body { background: #1b1c1d }
-    .right {
-	    position: absolute;
-	    right: 0px;
-    }
-  </style>
   <body>
     <div class="ui inverted vertical masthead center aligned segment">
       {{ template "menu.tmpl" }}
     </div>
-    <div class="ui inverted masthead left aligned segment apoc margin">
-      <div class="ui message black center">
-        <form id="mysqlForm" class="ui form inverted" action="/vault/mysql/create-creds" method="POST" onsubmit="return validateForm()">
+    <div class="ui inverted vertical masthead segment">
+      <div class="ui container">
+        <form id="mysqlForm" class="ui form inverted" action="/vault/mysql/create-creds" method="POST">
           <div class="field eight wide">
             <h3>Github token</h3>
-            <input type="text" name="githubToken" placeholder="Token" maxlength="40">
+            <input type="text" name="githubToken" maxlength="40">
+            <p id="checkGithubToken"></p>
           </div>
           <div class="eight wide field">
             <h3>Database</h3>
@@ -34,14 +28,18 @@
               </div>
             </div>
             <div class="field">
-              <div class="ui radio checkbox">
-                <input type="radio" name="accessMode" tabindex="0" class="hidden" value="readwrite">
-                <label>Read/Write</label>
+	              <div class="ui radio checkbox">
+	                <input type="radio" name="accessMode" tabindex="0" class="hidden" value="readwrite">
+	                <label>Read/Write</label>
+	              </div>
               </div>
-              </div>
-					      <div class="ui buttons red right aligned">
-                  <button id="submitMysqlForm" class="ui button" type="submit" >Submit</button>
-                </div>
+          <p>
+	        <div class="ui error message inverted">
+	        </div>
+	        </p>
+		      <div class="ui buttons red right aligned right floated">
+            <div id="submitMysqlForm" class="ui primary submit button">Submit</div>
+          </div>
         </form>
       </div>
     </div>
@@ -51,7 +49,7 @@
       </div>
       <div class="actions">
         <div class="ui buttons">
-          <div class="ui cancel button red" onclick="quitWithReload()">Sair</div>
+          <div class="ui cancel button green" onclick="quitWithReload()">Continue</div>
           </div>
         </div>
       </div>
@@ -59,37 +57,4 @@
 </html>
 
 <script src="http://malsup.github.com/jquery.form.js"></script>
-
-<script>
-var options = {
-  dataType: 'json',
-  success: function(response) {
-    var myData = JSON.stringify(response);
-    var myDataObject = JSON.parse(myData);
-    var info = 'Username: ' + myDataObject.username + '</br>' + 'Password: ' + myDataObject.password;
-    
-    $("#mysqlCredsInformation").append(info);
-    $('.ui.modal')
-      .modal('setting', 'transition', 'browse')
-      .modal('setting', 'closable', false)
-      .modal('show');
-  }
-};
-$("#mysqlForm").ajaxForm(options);
-
-function quitWithReload(){
-  location.reload();
-}
-
-$('#submitMysqlForm').on('click', function() {
-  $(this)
-    .addClass('loading')
-    .siblings()
-    .removeClass('loading');
-})
-
-$('.ui.radio.checkbox')
-  .checkbox();
-
-$('.ui.cancel.button')
-</script>
+<script src="../dist/mod/vaultMysql.js"></script>
