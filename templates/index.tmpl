@@ -1,18 +1,21 @@
 <html>
 {{ template "header.tmpl" }}
   <style>
-    body { background: #1b1c1d }
-
     .ui.inverted { background: rgba(254, 26, 36, 0.98); color: rgba(0, 0, 0, 0.9); }
-
-    h1 { font-size: 40px; margin: 250px; }
+    h1 { font-size: 55px; padding: 250px 125px 0px 125px; }
+    h2 { font-size: 20px; color: red; padding: 0px 160px 0px 0px;}
   </style>
 
   <body>
 
     <div class="ui inverted vertical masthead center aligned segment">
       {{ template "menu.tmpl" }}
-        <h1>Agile Promoter Operations Center - Involves</h1>
+    </div>
+    <div class="ui inverted vertical masthead segment">
+      <div class="ui container">
+        <h1>Agile Promoter Operations Center</h1>
+        <h2 align="right">Involves</h2>
+      </div>
     </div>
 
 	</body>
