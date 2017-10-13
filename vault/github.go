@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"time"
+	"fmt"
 )
 
 var (
@@ -19,6 +20,7 @@ type PolicyAuthGithubResponse map[string]string
 type GithubResponse struct {
 	RequestId	string			`json:"request_id"`
 	Auth		AuthGithubResponse	`json:"auth"`
+	Errors	[]string	`json:"errors"`
 }
 
 type AuthGithubResponse struct {
@@ -44,7 +46,6 @@ func GithubLogin(githubToken string) GithubResponse {
 	githubTokenJson, _ := json.Marshal(value)
 
 	req, _ := http.NewRequest("POST", githubUrlLogin, bytes.NewBuffer(githubTokenJson))
-
 	client := &http.Client{Timeout: time.Second * 10}
 	resp, _ := client.Do(req)
 	bodyGithubResponse , _ := ioutil.ReadAll(resp.Body)
