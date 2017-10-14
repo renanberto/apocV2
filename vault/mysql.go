@@ -30,7 +30,7 @@ type MysqlCredsForm struct {
 
 // This function HTMLMysqlHandler provider a HTML to MYSQL creds generator
 func HTMLMysqlHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "vault_mysql.tmpl", gin.H{
+	c.HTML(http.StatusOK, "vault_mysql.html", gin.H{
 		"title": "Agile Promoter Operations Center",
 	})
 }
