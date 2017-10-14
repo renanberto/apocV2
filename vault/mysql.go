@@ -1,34 +1,35 @@
 package vault
 
 import (
-	"github.com/gin-gonic/gin"
-	"net/http"
-	"io/ioutil"
 	"encoding/json"
+	"github.com/gin-gonic/gin"
+	"io/ioutil"
+	"net/http"
 )
 
 var (
-	mysqlEndpoint="/v1/database/creds/"
+	mysqlEndpoint = "/v1/database/creds/"
 )
 
 type MysqlResponse struct {
-	LeaseDuration		int		`json:"lease_duration"`
-	Data			MysqlData 	`json:"data"`
+	LeaseDuration int       `json:"lease_duration"`
+	Data          MysqlData `json:"data"`
+	Errors        []string  `json:"errors"`
 }
 
 type MysqlData struct {
-	Username	string	`json:"username"`
-	Password	string	`json:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type MysqlCredsForm struct {
-	githubToken		string `json:"githubToken" binding:"required"`
-	database 		string `json:"database" binding:"required"`
-	accessMode 		string `json:"accessMode" binding:"required"`
+	githubToken string `json:"githubToken" binding:"required"`
+	database    string `json:"database" binding:"required"`
+	accessMode  string `json:"accessMode" binding:"required"`
 }
 
 // This function HTMLMysqlHandler provider a HTML to MYSQL creds generator
-func HTMLMysqlHandler(c *gin.Context){
+func HTMLMysqlHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "vault_mysql.tmpl", gin.H{
 		"title": "Agile Promoter Operations Center",
 	})
@@ -51,15 +52,22 @@ func InputMysqlHandler(c *gin.Context) {
 	leaseTime := mysqlCredsInformation.LeaseDuration
 
 	if githubBody.Errors != nil {
-		c.JSON(http.StatusOK,gin.H{
-			"respError": githubBody.Errors,
+		err := githubBody.Errors
+		c.JSON(http.StatusOK, gin.H{
+			"respError": err,
+		})
+		return
+	} else if mysqlCredsInformation.Errors != nil {
+		err := mysqlCredsInformation.Errors
+		c.JSON(http.StatusOK, gin.H{
+			"respError": err,
 		})
 		return
 	}
 
-	c.JSON(http.StatusOK,gin.H{
-		"username": username,
-		"password": password,
+	c.JSON(http.StatusOK, gin.H{
+		"username":   username,
+		"password":   password,
 		"lease_time": leaseTime,
 	})
 }
@@ -71,18 +79,14 @@ func GenerateMysqlCreds(clientToken, database, accessMode string) MysqlResponse 
 
 	githubUrlLogin := vaultAddr + mysqlEndpoint + accessMode + "_" + database
 
-	req, err := http.NewRequest("GET", githubUrlLogin, nil)
+	req, _ := http.NewRequest("GET", githubUrlLogin, nil)
 	req.Header.Add("X-Vault-Token", clientToken)
 	client := &http.Client{}
-	resp, err := client.Do(req)
-
-	if err != nil {
-		panic(err)
-	}
+	resp, _ := client.Do(req)
 
 	defer resp.Body.Close()
 
-	bodyMysqlResponse , _ := ioutil.ReadAll(resp.Body)
+	bodyMysqlResponse, _ := ioutil.ReadAll(resp.Body)
 	json.Unmarshal([]byte(bodyMysqlResponse), &tmpMysqlResponse)
 
 	return tmpMysqlResponse
