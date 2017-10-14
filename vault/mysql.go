@@ -52,15 +52,15 @@ func InputMysqlHandler(c *gin.Context) {
 	leaseTime := mysqlCredsInformation.LeaseDuration
 
 	if githubBody.Errors != nil {
-		err := githubBody.Errors
 		c.JSON(http.StatusOK, gin.H{
-			"respError": err,
+			"respError": githubBody.Errors,
 		})
 		return
-	} else if mysqlCredsInformation.Errors != nil {
-		err := mysqlCredsInformation.Errors
+	}
+
+	if githubBody.Errors != nil {
 		c.JSON(http.StatusOK, gin.H{
-			"respError": err,
+			"respError": mysqlCredsInformation.Errors,
 		})
 		return
 	}
