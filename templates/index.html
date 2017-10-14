@@ -1,5 +1,5 @@
 <html>
-{{ template "header.tmpl" }}
+{{ template "header" . }}
   <style>
     .ui.inverted { background: rgba(254, 26, 36, 0.98); color: rgba(0, 0, 0, 0.9); }
     h1 { font-size: 55px; padding: 250px 125px 0px 125px; }
@@ -9,7 +9,7 @@
   <body>
 
     <div class="ui inverted vertical masthead center aligned segment">
-      {{ template "menu.tmpl" }}
+      {{ template "menu" . }}
     </div>
     <div class="ui inverted vertical masthead segment">
       <div class="ui container">
