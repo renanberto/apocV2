@@ -47,10 +47,6 @@ func InputMysqlHandler(c *gin.Context) {
 	githubBody := GithubLogin(tmpMysqlCredsForm.githubToken)
 	mysqlCredsInformation := GenerateMysqlCreds(githubBody.Auth.ClientToken, tmpMysqlCredsForm.database, tmpMysqlCredsForm.accessMode)
 
-	username := mysqlCredsInformation.Data.Username
-	password := mysqlCredsInformation.Data.Password
-	leaseTime := mysqlCredsInformation.LeaseDuration
-
 	if githubBody.Errors != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"respError": githubBody.Errors,
@@ -58,7 +54,7 @@ func InputMysqlHandler(c *gin.Context) {
 		return
 	}
 
-	if githubBody.Errors != nil {
+	if mysqlCredsInformation.Errors != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"respError": mysqlCredsInformation.Errors,
 		})
@@ -66,9 +62,9 @@ func InputMysqlHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"username":   username,
-		"password":   password,
-		"lease_time": leaseTime,
+		"username":   mysqlCredsInformation.Data.Username,
+		"password":   mysqlCredsInformation.Data.Password,
+		"lease_time": mysqlCredsInformation.LeaseDuration,
 	})
 }
 
