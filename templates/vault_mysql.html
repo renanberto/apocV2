@@ -1,12 +1,18 @@
 <html>
-{{ template "header_depth1" . }}
+{{ template "header" . }}
   <body>
     <div class="ui inverted vertical masthead center aligned segment">
       {{ template "menu" . }}
     </div>
     <div class="ui inverted vertical masthead segment">
       <div class="ui container">
-        <form id="mysqlForm" class="ui form inverted" action="/vault/mysql/create-creds" method="POST">
+        <h1 class="ui header red" id="headerMysqlTitle">
+          <i class="lock icon"></i>
+          <div class="content">
+            Mysql credentials generate.
+          </div>
+        </h1>
+        <form id="mysqlForm" class="ui form inverted" action="/v1/vault/mysql/create-creds" method="POST">
           <div class="field eight wide">
             <h3>Github token</h3>
             <input type="text" name="githubToken" maxlength="40">

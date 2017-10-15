@@ -9,7 +9,7 @@
 				<h1 class="ui header red">
 					<i class="history icon"></i>
 					<div class="content">
-						Outage History.
+						Restart History.
 					</div>
 				</h1>
 				<p></p>
@@ -18,22 +18,20 @@
 						<table id="historyTable" class="ui compact selectable striped celled table dataTable no-footer" cellspacing="0" width="100%" role="grid" aria-describedby="example_info" style="width: 100%;">
 							<thead>
 								<tr role="row">
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 200px;">Client Name</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">Server</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 1000px;">Date</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">Duration</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">User</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">Top 10</th></tr>
+								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 150px;">Client Name</th>
+								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 150px;">Server</th>
+								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 100px;">Date</th>
+								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 250px;">User</th>
+								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 1200px;">Description</th>
 							</thead>
 							<tbody>
-							{{ range $key, $value := .Outages }}
+							{{ range $key, $value := .Restarts }}
 							<tr role="row" class="even">
-								<td>{{ .ClientID }}</td>
+								<td>{{ .ClientId }}</td>
 								<td>{{ .ServerAddress }}</td>
 								<td>{{ .CreationDate }}</td>
-								<td>{{ .Duration }}</td>
-								<td>{{ .Agent }}</td>
-								<td>{{ .TopClients }}</td>
+								<td>{{ .User }}</td>
+								<td>{{ .Description }} </td>
 							</tr>
 							{{ end }}
 							</tbody>

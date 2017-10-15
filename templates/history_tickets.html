@@ -9,7 +9,7 @@
 				<h1 class="ui header red">
 					<i class="history icon"></i>
 					<div class="content">
-						Outage History.
+						Tickets History.
 					</div>
 				</h1>
 				<p></p>
@@ -19,21 +19,13 @@
 							<thead>
 								<tr role="row">
 								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 200px;">Client Name</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">Server</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 1000px;">Date</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">Duration</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">User</th>
-								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">Top 10</th></tr>
+								<th class="sorting" tabindex="0" aria-controls="tableControl" rowspan="1" colspan="1" style="width: 650px;">Create Date</th>
 							</thead>
 							<tbody>
-							{{ range $key, $value := .Outages }}
+							{{ range $key, $value := .Tickets }}
 							<tr role="row" class="even">
 								<td>{{ .ClientID }}</td>
-								<td>{{ .ServerAddress }}</td>
 								<td>{{ .CreationDate }}</td>
-								<td>{{ .Duration }}</td>
-								<td>{{ .Agent }}</td>
-								<td>{{ .TopClients }}</td>
 							</tr>
 							{{ end }}
 							</tbody>
