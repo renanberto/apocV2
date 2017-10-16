@@ -7,6 +7,7 @@ import (
 	"github.com/renanberto/apocV2/utils"
 	"github.com/renanberto/apocV2/vault"
 	"net/http"
+	"github.com/renanberto/apocV2/staging"
 )
 
 func main() {
@@ -21,9 +22,8 @@ func main() {
 	// Posts
 	v1 := router.Group("/v1")
 	{
-		endPointHistory := router.Group("/history")
+		endPointHistory := v1.Group("/history")
 		{
-
 			endPointHistory.POST("/outage/create", history.InputOutageHandler)
 			endPointHistory.POST("/restart/create", history.InputRestartHandler)
 			endPointHistory.POST("/update/create", history.InputUpdateHandler)
@@ -31,6 +31,7 @@ func main() {
 			endPointHistory.POST("/versions", history.InputVersionsHandler)
 		}
 		v1.POST("/vault/mysql/create-creds", vault.InputMysqlHandler)
+		v1.POST("/vault/mongo/create-creds", vault.InputMongoHandler)
 	}
 
 	// Views
@@ -41,7 +42,9 @@ func main() {
 	router.GET("/history/restarts", history.HTMLRestartsHandler)
 	router.GET("/history/updates", history.HTMLUpdatesHandler)
 	router.GET("/history/versions", history.HTMLVersionsHandler)
+	router.GET("/staging/environment", staging.HTMLStagingHandler)
 	router.GET("/vault/mysql", vault.HTMLMysqlHandler)
+	router.GET("/vault/mongo", vault.HTMLMongoHandler)
 
 	//With Params
 	router.GET("/v1/history/update/:client_id", history.InputUpdateHandlerByID)
