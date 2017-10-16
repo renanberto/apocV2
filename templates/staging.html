@@ -1,0 +1,27 @@
+<html>
+{{ template "header" . }}
+  <style>
+    .ui.inverted { background: rgba(254, 26, 36, 0.98); color: rgba(0, 0, 0, 0.9); }
+    h1 { font-size: 55px; padding: 200px 125px 0px 125px; }
+    h2 { font-size: 20px; color: red; padding: 0px 160px 0px 0px;}
+  </style>
+
+  <body>
+
+    <div class="ui inverted vertical masthead center aligned segment">
+      {{ template "menu" . }}
+    </div>
+    <div class="ui inverted vertical masthead segment">
+      <div class="ui container">
+        <h1>Agile Promoter Operations Center</h1>
+        <h2 align="right">Involves</h2>
+      </div>
+    </div>
+
+	</body>
+</html>
+
+<script>
+$('h1')
+  .transition('tada');
+</script>
