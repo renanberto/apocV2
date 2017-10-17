@@ -7,7 +7,7 @@ $('.ui.red.button').on('click', function() {
   request.open("POST", "/v1/staging/environment/remove");
   request.send(formData);
   
-  setTimeout(location.reload.bind(location), 3000);
+  setTimeout(location.reload.bind(location), 1000);
   
   $(this)
   .addClass('loading')
