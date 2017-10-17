@@ -1,27 +1,57 @@
 <html>
 {{ template "header" . }}
-  <style>
-    .ui.inverted { background: rgba(254, 26, 36, 0.98); color: rgba(0, 0, 0, 0.9); }
-    h1 { font-size: 55px; padding: 200px 125px 0px 125px; }
-    h2 { font-size: 20px; color: red; padding: 0px 160px 0px 0px;}
-  </style>
-
   <body>
+
+  <style>
+    .ribbon.label {
+      max-width: 0;
+    }
+  </style>
 
     <div class="ui inverted vertical masthead center aligned segment">
       {{ template "menu" . }}
     </div>
-    <div class="ui inverted vertical masthead segment">
-      <div class="ui container">
-        <h1>Agile Promoter Operations Center</h1>
-        <h2 align="right">Involves</h2>
+    <div class="ui inverted segment centered">
+      <div class="ui container ">
+        <h1>Create new staging APP</h1>
+        <div class="ui doubling three link cards">
+          {{ range $index, $value := .stagingContainers }}
+          <div class="card red">
+            {{if eq .State "running" }}
+            <div class="ui green ribbon label">{{ .State }}</div>
+            {{ else }}
+            <div class="ui red ribbon label">{{ .State }}</div>
+            {{ end }}
+              <div class="content">
+                <div class="header">
+                  {{ .Name }}
+                </div>
+                <div class="meta">
+                  <a>
+                  {{ .Created }}
+                  </a>
+              </div>
+              <div class="description">
+                {{ .Status }}
+              </div>
+            </div>
+            <div class="extra content">
+              <span class="right floated">
+                <div class="ui red button">
+                  <input id="#ID" type="hidden" value="{{ .ID }}">
+                    Remove
+                </div>
+              </span>
+              <span>
+                <i class="Idea icon green"></i>
+              </span>
+            </div>
+          </div>
+          {{ end }}
+        </div>
       </div>
     </div>
+  </body>
 
-	</body>
+<script src="../dist/mod/staging.js"></script>
 </html>
-
-<script>
-$('h1')
-  .transition('tada');
-</script>
