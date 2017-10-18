@@ -11,9 +11,15 @@
     <div class="ui inverted vertical masthead center aligned segment">
       {{ template "menu" . }}
     </div>
+
     <div class="ui inverted segment centered">
       <div class="ui container ">
-        <h1>Create new staging APP</h1>
+        <button class="positive floated big ui button">
+          Create review-app
+        </button>
+        <h3 class="ui horizontal divider header red">
+          List
+        </h3>
         <div class="ui doubling three link cards">
           {{ range $index, $value := .stagingContainers }}
           <div class="card red">
@@ -35,9 +41,10 @@
                 {{ .Status }}
               </div>
             </div>
+
             <div class="extra content">
               <span class="right floated">
-                <div class="ui red button">
+                <div class="ui red button deleteContainer">
                   <input id="#ID" type="hidden" value="{{ .ID }}">
                     Remove
                 </div>
@@ -46,10 +53,43 @@
                 <i class="Idea icon green"></i>
               </span>
             </div>
+
           </div>
           {{ end }}
         </div>
       </div>
+    </div>
+    <div class="ui mini modal">
+      <div class="header">
+        <i class="add Square icon"></i>
+        Review App
+      </div>
+      <div id="stagingModal" class="content">
+        <header>JAVA PR</header>
+        <div class="ui input">
+          <input type="text" class="javaPR">
+        </div>
+        <div class="ui section divider "></div>
+        <header>HTML PR</header>
+        <div class="ui input">
+          <input type="text" class="htmlPR">
+        </div>
+        <div class="ui section divider"></div>
+        <header>Slack User</header>
+        <div class="ui input">
+          <input type="text" class="slackUser">
+        </div>
+
+      </div>
+      <div class="actions">
+        <div class="ui buttons">
+          <div class="ui cancel button red">Cancel</div>
+          <div class="ui approve button green" onclick="modalSubmitForm()">Continue</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui second modal">
+      teste
     </div>
   </body>
 
