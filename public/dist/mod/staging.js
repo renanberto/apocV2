@@ -23,20 +23,29 @@ $('.ui.positive.button').on('click',function () {
 });
 
 function modalSubmitForm() {
-  var javaPR = document.getElementsByClassName("javaPR")[0].value;
-  var htmlPR = document.getElementsByClassName("htmlPR")[0].value;
-  var slackUser = document.getElementsByClassName("slackUser")[0].value;
-
-  var formData = new FormData();
-
-  formData.append("javaPR", javaPR);
-  formData.append("htmlPR", htmlPR);
-  formData.append("slackUser", slackUser);
-
-  var request = new XMLHttpRequest();
-
-  request.open("POST", "/v1/staging/environment/create");
-  request.send(formData);
-
-  location.reload();
+  if (document.getElementsByClassName("javaPR")[0].value  || document.getElementsByClassName("htmlPR")[0].value || document.getElementsByClassName("slackUser")[0].value ){
+  
+    var javaPR = document.getElementsByClassName("javaPR")[0].value;
+    var htmlPR = document.getElementsByClassName("htmlPR")[0].value;
+    var slackUser = document.getElementsByClassName("slackUser")[0].value;
+  
+    var formData = new FormData();
+  
+    formData.append("javaPR", javaPR);
+    formData.append("htmlPR", htmlPR);
+    formData.append("slackUser", slackUser);
+  
+    var request = new XMLHttpRequest();
+  
+    request.open("POST", "/v1/staging/environment/create");
+    request.send(formData);
+    
+    if (request.statusText == 200) {
+      alert("Job iniciado!");
+      setTimeout(location.reload.bind(location), 1000);
+    }
+    
+  } else {
+    alert("Field empty.")
+  }
 };

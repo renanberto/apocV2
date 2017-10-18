@@ -20,6 +20,9 @@ type ContainerInformation struct {
 func HTMLStagingHandler(c *gin.Context) {
 
 	listedStagingContainers := listAllStagingContainers()
+	if listedStagingContainers == nil{
+		fmt.Println("Error.")
+	}
 
 	c.HTML(http.StatusOK, "staging.html", gin.H{
 		"title": "Agile Promoter Operations Center",
@@ -74,10 +77,14 @@ func InputStagingRemoveHandler(c *gin.Context) {
 }
 
 func InputStagingCreateHandler(c *gin.Context) {
+	var reviewApp utils.ReviewApp
 
 	javaPR := c.PostForm("javaPR")
 	htmlPR := c.PostForm("htmlPR")
-	slackUser := c.PostForm("slackUser")
+	slackUser := "@" + c.PostForm("slackUser")
 
-	fmt.Println(javaPR,htmlPR,slackUser)
+	reviewApp.NewReviewApp(javaPR,htmlPR,slackUser)
+	reviewApp.ReviewAppCreate()
+
+	c.String(http.StatusOK,"")
 }
