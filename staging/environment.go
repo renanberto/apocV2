@@ -54,14 +54,12 @@ func listAllStagingContainers() []ContainerInformation {
 	return stagingContainersInformation
 }
 
-func RemoveStagingContainer(c *gin.Context) {
+func InputStagingRemoveHandler(c *gin.Context) {
 	var newDockerConnection utils.DockerConnection
 
 	containerID := c.PostForm("id")
 	newDockerConnection.New("involves-hetfield")
 	err := utils.RemoveContainerId(containerID,newDockerConnection)
-
-	fmt.Println("passou")
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -73,4 +71,13 @@ func RemoveStagingContainer(c *gin.Context) {
 		})
 	}
 
+}
+
+func InputStagingCreateHandler(c *gin.Context) {
+
+	javaPR := c.PostForm("javaPR")
+	htmlPR := c.PostForm("htmlPR")
+	slackUser := c.PostForm("slackUser")
+
+	fmt.Println(javaPR,htmlPR,slackUser)
 }
