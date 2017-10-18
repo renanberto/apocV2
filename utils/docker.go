@@ -57,7 +57,7 @@ func RemoveContainerId (containerId string, dockerConnection DockerConnection ) 
 
 func ListAllContainers (dockerConnection DockerConnection) (err error, listContainers []docker.APIContainers) {
 	client, _ := docker.NewTLSClient(dockerConnection.endpoint, dockerConnection.cert, dockerConnection.key, dockerConnection.ca)
-	allContainersRunning, _ := client.ListContainers(docker.ListContainersOptions{All: false})
+	allContainersRunning, _ := client.ListContainers(docker.ListContainersOptions{All: true})
 
 	return err, allContainersRunning
 }

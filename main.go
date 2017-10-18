@@ -2,12 +2,12 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/renanberto/apocV2/ginHtmlRender"
-	"github.com/renanberto/apocV2/history"
-	"github.com/renanberto/apocV2/utils"
-	"github.com/renanberto/apocV2/vault"
+	"github.com/involvestecnologia/apoc/ginHtmlRender"
+	"github.com/involvestecnologia/apoc/history"
+	"github.com/involvestecnologia/apoc/utils"
+	"github.com/involvestecnologia/apoc/vault"
 	"net/http"
-	"github.com/renanberto/apocV2/staging"
+	"github.com/involvestecnologia/apoc/staging"
 )
 
 func main() {
