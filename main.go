@@ -32,7 +32,8 @@ func main() {
 		}
 		v1.POST("/vault/mysql/create-creds", vault.InputMysqlHandler)
 		v1.POST("/vault/mongo/create-creds", vault.InputMongoHandler)
-		v1.POST("/staging/environment/remove", staging.RemoveStagingContainer)
+		v1.POST("/staging/environment/remove", staging.InputStagingRemoveHandler)
+		v1.POST("/staging/environment/create", staging.InputStagingCreateHandler)
 	}
 
 	// Views
