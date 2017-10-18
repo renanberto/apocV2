@@ -1,4 +1,4 @@
-$('.ui.red.button').on('click', function() {
+$('.deleteContainer').on('click', function() {
   var ID = $(this).find("input").attr('value');
   
   var formData = new FormData();
@@ -14,3 +14,29 @@ $('.ui.red.button').on('click', function() {
   .siblings()
   .removeClass('loading');
 });
+
+$('.ui.positive.button').on('click',function () {
+    $('.ui.mini.modal')
+        .modal('setting', 'transition', 'browse')
+        .modal('setting', 'closable', false)
+        .modal('show');
+});
+
+function modalSubmitForm() {
+  var javaPR = document.getElementsByClassName("javaPR")[0].value;
+  var htmlPR = document.getElementsByClassName("htmlPR")[0].value;
+  var slackUser = document.getElementsByClassName("slackUser")[0].value;
+
+  var formData = new FormData();
+
+  formData.append("javaPR", javaPR);
+  formData.append("htmlPR", htmlPR);
+  formData.append("slackUser", slackUser);
+
+  var request = new XMLHttpRequest();
+
+  request.open("POST", "/v1/staging/environment/create");
+  request.send(formData);
+
+  location.reload();
+};
